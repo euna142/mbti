@@ -1,0 +1,171 @@
+/* 전체 배경 설정 */
+body {
+    font-family: 'Jua', sans-serif; /* 귀엽고 동글동글한 폰트 */
+    background-color: #fff8dc; /* 짱구 무늬 배경을 받쳐주는 밝은 색 */
+    background-image: url(''); /* 짱구 무늬 이미지 사용 */
+    background-size: 150px 150px; /* 짱구 무늬를 적절한 크기로 조정 */
+    background-repeat: repeat; /* 무늬를 반복적으로 채움 */
+    background-attachment: fixed; /* 스크롤 시 배경 고정 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 메인 컨테이너 */
+#container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* 시작 화면 */
+#start-container {
+    color: #333;
+    background: rgba(255, 255, 255, 0.9); /* 투명 흰 배경 */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 50px auto;
+    width: 80%;
+}
+
+#start-title {
+    font-size: 2.8em;
+    color: #ff4500; /* 발랄한 오렌지 */
+    margin-bottom: 20px;
+}
+
+#start-image {
+    width: 800px;
+    height: 400px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#start-btn {
+    background-color: #ffd700; /* 짱구 노란색 */
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.4em;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+#start-btn:hover {
+    background-color: #ffa500;
+    transform: scale(1.1);
+}
+
+/* 질문 화면 */
+#question-container {
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 50px auto;
+    width: 80%;
+    animation: fadeIn 0.5s; /* 부드러운 화면 전환 효과 */
+}
+
+#question-title {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+
+/* 질문 폰트 스타일 */
+#question-text {
+    font-family: 'Jua', sans-serif; /* JUA 폰트 적용 */
+    font-size: 1.5em; /* 질문 내용을 동글동글 귀엽게 */
+    margin-bottom: 20px;
+    color: #000;
+    line-height: 1.6; /* 읽기 편하게 줄 간격 추가 */
+}
+
+/* 질문 배경색 다르게 */
+#question-container:nth-of-type(odd) {
+    background-color: rgba(255, 228, 225, 0.7); /* 연핑크 */
+}
+#question-container:nth-of-type(even) {
+    background-color: rgba(240, 248, 255, 0.7); /* 연하늘 */
+}
+
+#question-image {
+    width: 400px;  /* 이미지 크기 */
+    height: 400px; /* 이미지 크기 */
+}
+
+/* 선택지 버튼 */
+#choices button {
+    background-color: #32cd32; /* 밝은 초록 */
+    font-family: 'Jua', sans-serif; /* 선택지에도 JUA 폰트 적용 */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+#choices button:hover {
+    background-color: #228b22;
+    transform: scale(1.1);
+}
+
+/* 결과 화면 */
+#result-container {
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 50px auto;
+    width: 80%;
+}
+
+#result-title {
+    font-size: 2.2em;
+    color: #ff69b4; /* 핑크 */
+    margin-bottom: 20px;
+}
+
+#result-image {
+    width: 600px;
+    height: 400px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 버튼 공통 스타일 */
+button {
+    background-color: #00ced1; /* 청록 */
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #20b2aa;
+    transform: scale(1.1);
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

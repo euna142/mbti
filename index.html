@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학교 생활 MBTI 심리테스트</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <!-- 시작 화면 -->
+        <div id="start-container">
+            <h1>🎓 학교 생활 MBTI 🎓</h1>
+            <img id="start-image" src="/static/start.jpg" alt="Start Image">
+            <button id="start-btn">시작하기</button>
+        </div>
+
+        <!-- 질문 화면 -->
+        <div id="question-container" style="display: none;">
+            <div id="question-content">
+                <img id="question-image" src="" alt="Question Image">
+                <h2 id="question-text"></h2>
+            </div>
+            <div id="choices">
+                <button id="choiceA"></button>
+                <button id="choiceB"></button>
+            </div>
+            <button id="next-btn" style="display: none;">다음 질문</button>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div id="result-container" style="display: none;">
+            <h1 id="result-title"></h1>
+            <img id="result-image" src="" alt="Result Image">
+            <button id="restart-btn">다시 시작하기</button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let answers = [];
+
+        // 질문 배열
+        const questions = [
+            { "question": "새학기 반에 들어갈 때의 심정은?", "choiceA": "제발,, 아는 사람 있어라,,", "choiceB": "이번에는 누구한테 말을 걸어볼까??", "image": "static/question1.jpg" },
+            { "question": "새학기 선생님께서 자기소개를 하라고 한다면?", "choiceA": "1년 동안 조용히 숨만 쉬고 싶다.", "choiceB": "누구보다 빠르게 손들고 발표를 한다.", "image": "/static/question2.jpg" },
+            { "question": "드디어 주말이 되었다. 나는?", "choiceA": "집에서 휴식을 취한다.", "choiceB": "나가서 놀아야 한다.", "image": "/static/question3.jpg" },
+            { "question": "등교 중 같은 반 친구를 발견했을 때 나는?", "choiceA": "어차피 학교에서 만날 거니 무시한다.", "choiceB": "달려가 인사를 한다.", "image": "/static/question4.jpg" },
+            { "question": "친구가 질문을 하기 시작하면 나는?", "choiceA": "누구보다 집중하며 듣는다.", "choiceB": "또 시작이네,,," , "image": "/static/question5.jpg" },
+            { "question": "학교 수업시간에 멍 때릴 때 나는?", "choiceA": "아무 생각이 없다.", "choiceB": "온갖 생각을 다 한다." , "image": "/static/question6.jpg" },
+            { "question": "미술시간 창의력을 발휘하라고 한다면?", "choiceA": "뭘 그려야할지 감이 안 잡힌다.", "choiceB": "아이디어가 머릿속에 가득 찬다.", "image": "/static/question7.jpg" },
+            { "question": "길에서 사과를 발견했을 때 나는?", "choiceA": "어? 사과다.", "choiceB": "사과가 왜 있지? 누가 떨어뜨렸나?", "image": "/static/question8.jpg" },
+            { "question": "같은 실수를 반복하는 친구에게 나는?", "choiceA": "따끔하게 지적하며 다음에는 실수를 하지 않도록 한다.", "choiceB": "최대한 돌려서 말을 하며 기분이 안 나쁘게 한다.", "image": "/static/question9.jpg" },
+            { "question": "친구가 염색을 했을 때 나는?", "choiceA": "뭐? 무슨 색으로 염색했는데? 사진 보내봐.", "choiceB": "왜 기분이 안 좋아? 지금은 괜찮아?", "image": "/static/question10.jpg" },
+            { "question": "학교 개학 전날 나는?", "choiceA": "가방을 다 싸놓는다.", "choiceB": "가방? 내일의 내가 하겠지하며 폰을 한다.", "image": "/static/question11.jpg" }
+        ];
+
+        const startButton = document.getElementById("start-btn");
+        const questionContainer = document.getElementById("question-container");
+        const resultContainer = document.getElementById("result-container");
+        const resultTitle = document.getElementById("result-title");
+        const resultImage = document.getElementById("result-image");
+        const nextButton = document.getElementById("next-btn");
+        const restartButton = document.getElementById("restart-btn");
+
+        startButton.addEventListener("click", startQuiz);
+        restartButton.addEventListener("click", restartQuiz);
+        nextButton.addEventListener("click", nextQuestion);
+
+        function startQuiz() {
+            document.getElementById("start-container").style.display = "none";
+            questionContainer.style.display = "block";
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById("question-text").innerText = question.question;
+            document.getElementById("choiceA").innerText = question.choiceA;
+            document.getElementById("choiceB").innerText = question.choiceB;
+            document.getElementById("question-image").src = question.image;
+            document.getElementById("choiceA").onclick = () => chooseAnswer('A');
+            document.getElementById("choiceB").onclick = () => chooseAnswer('B');
+            nextButton.style.display = "none";
+        }
+
+        function chooseAnswer(answer) {
+            answers.push(answer);
+            nextButton.style.display = "inline-block";
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+    // MBTI 계산 결과 받기
+    const mbti = calculateMbti(answers); // 기존 MBTI 계산 함수
+    const resultImageSrc = `/static/${mbti.toLowerCase()}.jpg`;  // MBTI 결과에 맞는 이미지 경로
+
+    // 결과 제목 업데이트
+    resultTitle.innerText = `당신의 MBTI는 ${mbti}입니다.`;
+
+    // 결과 이미지 업데이트
+    resultImage.src = resultImageSrc; // 동적으로 결과 이미지 로드
+
+    // 화면 전환
+    questionContainer.style.display = "none";
+    resultContainer.style.display = "block";
+}
+
+
+        function calculateMbti(answers) {
+            const scores = {'I': 0, 'E': 0, 'S': 0, 'N': 0, 'T': 0, 'F': 0, 'J': 0, 'P': 0};
+
+            for (let i = 0; i < answers.length; i++) {
+                if (i < 4) {
+                    answers[i] === 'A' ? scores['I']++ : scores['E']++;
+                } else if (i < 8) {
+                    answers[i] === 'A' ? scores['S']++ : scores['N']++;
+                } else {
+                    answers[i] === 'A' ? scores['T']++ : scores['F']++;
+                }
+            }
+
+            let mbti = '';
+            mbti += scores['I'] > scores['E'] ? 'I' : 'E';
+            mbti += scores['S'] > scores['N'] ? 'S' : 'N';
+            mbti += scores['T'] > scores['F'] ? 'T' : 'F';
+            mbti += scores['J'] > scores['P'] ? 'J' : 'P';
+
+            return mbti;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            resultContainer.style.display = "none";
+            document.getElementById("start-container").style.display = "block";
+        }
+    </script>
+</body>
+</html>
